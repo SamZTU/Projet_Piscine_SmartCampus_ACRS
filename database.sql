@@ -11,9 +11,6 @@ CREATE TABLE users (
     created_at  DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- ============================================================
--- 2. ETUDIANTS (infos académiques liées à un user)
--- ============================================================
 CREATE TABLE etudiants (
     id                INT AUTO_INCREMENT PRIMARY KEY,
     user_id           INT NOT NULL UNIQUE,
@@ -28,9 +25,6 @@ CREATE TABLE etudiants (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- 3. ENSEIGNANTS
--- ============================================================
 CREATE TABLE enseignants (
     id           INT AUTO_INCREMENT PRIMARY KEY,
     user_id      INT NOT NULL UNIQUE,
@@ -40,9 +34,6 @@ CREATE TABLE enseignants (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- 4. COURS
--- ============================================================
 CREATE TABLE cours (
     id             INT AUTO_INCREMENT PRIMARY KEY,
     code           VARCHAR(20) NOT NULL UNIQUE,    -- ex: INFO101
@@ -60,9 +51,6 @@ CREATE TABLE cours (
     FOREIGN KEY (enseignant_id) REFERENCES enseignants(id) ON DELETE SET NULL
 );
 
--- ============================================================
--- 5. INSCRIPTIONS (étudiant <-> cours)
--- ============================================================
 CREATE TABLE inscriptions (
     id               INT AUTO_INCREMENT PRIMARY KEY,
     etudiant_id      INT NOT NULL,
@@ -74,9 +62,6 @@ CREATE TABLE inscriptions (
     FOREIGN KEY (cours_id)    REFERENCES cours(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- 6. NOTES
--- ============================================================
 CREATE TABLE notes (
     id            INT AUTO_INCREMENT PRIMARY KEY,
     etudiant_id   INT NOT NULL,
@@ -93,9 +78,6 @@ CREATE TABLE notes (
     FOREIGN KEY (cours_id)    REFERENCES cours(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- 7. EMPLOI DU TEMPS
--- ============================================================
 CREATE TABLE emploi_du_temps (
     id           INT AUTO_INCREMENT PRIMARY KEY,
     cours_id     INT NOT NULL,
@@ -107,9 +89,6 @@ CREATE TABLE emploi_du_temps (
     FOREIGN KEY (cours_id) REFERENCES cours(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- 8. PRESENCES (optionnel mais recommandé)
--- ============================================================
 CREATE TABLE presences (
     id           INT AUTO_INCREMENT PRIMARY KEY,
     etudiant_id  INT NOT NULL,
@@ -121,9 +100,6 @@ CREATE TABLE presences (
     FOREIGN KEY (cours_id)    REFERENCES cours(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- 9. NOTIFICATIONS (optionnel)
--- ============================================================
 CREATE TABLE notifications (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     user_id     INT NOT NULL,
@@ -135,9 +111,6 @@ CREATE TABLE notifications (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ============================================================
--- 10. MESSAGES (optionnel)
--- ============================================================
 CREATE TABLE messages (
     id              INT AUTO_INCREMENT PRIMARY KEY,
     expediteur_id   INT NOT NULL,
@@ -149,13 +122,6 @@ CREATE TABLE messages (
     FOREIGN KEY (expediteur_id)   REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (destinataire_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
-
--- ============================================================
--- DONNÉES DE TEST
--- Mots de passe : tous "password123" hashés avec password_hash()
--- Hash utilisé : $2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi
--- ============================================================
 
 -- Admin
 INSERT INTO users (nom, prenom, email, password, role) VALUES
