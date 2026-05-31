@@ -295,3 +295,44 @@ tbody tr:hover { background: #f8fafc; }
     .main-content { margin-left: 0; padding: 16px; }
     .cards-grid { grid-template-columns: 1fr 1fr; }
 }
+
+
+
+
+
+
+
+
+//faut supp tout ca 
+
+9edf7",
+            command=self.lancer_classique
+        )
+        bouton_classique.pack(pady=8)
+
+        bouton_intelligent = tk.Button(
+            cadre,
+            text="Lancer le mode intelligent",
+            font=("Arial", 13),
+            width=28,
+            height=2,
+            bg="#dff0d8",
+            command=self.lancer_intelligent
+        )
+        bouton_intelligent.pack(pady=8)
+
+        bouton_comparer = tk.Button(
+            cadre,
+            text="Comparer les deux modes",
+            font=("Arial", 13),
+            width=28,
+            height=2,
+            bg="#fcf8e3",
+            command=self.comparer
+        )
+        bouton_comparer.pack(pady=8)
+
+        bouton_quitter = tk.Button(
+            cadre,
+            text="Quitter",
+            font=("Arial", 13),
